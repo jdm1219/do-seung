@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="timeline">
         <v-layout row wrap class="layout" v-if="login">
             <v-flex xs12 class="title">
                 <CountDown/>
@@ -9,10 +9,20 @@
                 <Feeds v-for="feed in feeds" :key="feed.content" :para="feed" />
             </v-container>
         </v-layout>
-        <v-layout row wrap class="layout" v-else>
-            <h1>PASSWORD</h1>
-            <input type="text" v-model="pw">
-            <v-btn @click="checkLogin"></v-btn>
+        <v-layout row wrap class="layout login" v-else>
+            <v-flex xs12>
+                <h1>비밀번호를 입력해주세요</h1>
+            </v-flex>
+            <v-flex xs2>
+            </v-flex>
+            <v-flex xs5>
+                <v-text-field v-model="pw"></v-text-field>
+            </v-flex>
+            <v-flex xs3>
+                <v-btn @click="checkLogin">제출</v-btn>
+            </v-flex>
+            <v-flex xs2>
+            </v-flex>
         </v-layout>
     </div>
 </template>
@@ -71,6 +81,10 @@ export default {
 </script>
 
 <style scoped>
+    #timeline {margin: 0 auto;}
     .title {text-align: center;}
-    .layout {max-width: 700px; margin: 0 auto;}
+    .layout {max-width: 700px;}
+    h1 {text-align: center;}
+    .login .flex {text-align: center;}
+    .login {position: absolute; top: 50%; left: calc(50% + 150px); transform: translate(-50%,-50%);}
 </style>
