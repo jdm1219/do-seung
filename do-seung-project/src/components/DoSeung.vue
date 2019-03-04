@@ -81,10 +81,14 @@ export default {
 </script>
 
 <style scoped>
-    #timeline {margin: 0 auto;}
+    #timeline {margin: 0 auto; position: relative;}
     .title {text-align: center;}
     .layout {max-width: 700px;}
     h1 {text-align: center;}
     .login .flex {text-align: center;}
-    .login {position: absolute; top: 50%; left: calc(50% + 150px); transform: translate(-50%,-50%);}
+    .login {width: 320px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}
+    @media screen and (max-width: 640px){
+        .login {width: 300px;}
+        .login h1 {font-size: 24px;}
+    }
 </style>

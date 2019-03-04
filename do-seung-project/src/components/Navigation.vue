@@ -1,9 +1,5 @@
 <template>
-    
-    <v-navigation-drawer
-    permanent
-    fixed
-    >
+    <v-navigation-drawer>
         <v-toolbar flat>
         <v-list>
             <v-list-tile>

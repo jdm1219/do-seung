@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <navigation/>
-    <v-layout row wrap class="abc">
+    <v-layout row wrap>
+      <navigation/>
       <DoSeung/>
     </v-layout>
   </v-app>
@@ -25,7 +25,9 @@ export default {
   }
 }
 </script>
- 
+
 <style>
-  .abc {margin-left: 300px;}
+  @media screen and (max-width: 1200px){
+    .v-navigation-drawer {display: none;}    
+  }
 </style>
