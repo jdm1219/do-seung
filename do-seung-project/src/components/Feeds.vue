@@ -2,7 +2,7 @@
     <v-layout class="flex newsfeed" sm12 wrap>
         <v-flex xs12>
             <v-card class="img" v-for="(image,i) in para.img" :key="para.content+i">
-                <img :src="`http://drive.google.com/uc?export=view&id=${image}`" alt="">
+                <img :src="`https://drive.google.com/uc?export=view&id=${image}`" alt="">
             </v-card>
         </v-flex>
         <v-flex>
