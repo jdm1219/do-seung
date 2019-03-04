@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-layout row wrap class="layout" v-if="loadDone">
+        <v-layout row wrap class="layout" v-if="login">
             <v-flex xs12 class="title">
                 <CountDown/>
             </v-flex>
@@ -10,7 +10,9 @@
             </v-container>
         </v-layout>
         <v-layout row wrap class="layout" v-else>
-            <h1>로딩중입니다.</h1>
+            <h1>PASSWORD</h1>
+            <input type="text" v-model="pw">
+            <v-btn @click="checkLogin"></v-btn>
         </v-layout>
     </div>
 </template>
@@ -34,7 +36,21 @@ export default {
         return {
             feeds: [
             ],
-            loadDone : false
+            loadDone : false,
+            pw : null,
+            login: false
+        }
+    },
+    methods: {
+        checkLogin(){
+            axios.post('https://0yunt9oocd.execute-api.ap-northeast-2.amazonaws.com/prod/users',{
+                "pw": this.pw
+            })
+            .then(res => {
+                if(res.data.access == 'success'){
+                    this.login = true
+                }
+            })
         }
     },
     created() {
@@ -45,9 +61,11 @@ export default {
         .then(res => {
             this.feeds = res.data
         })
-        .then(
-            this.loadDone = true
-        )
+        .then(() => {
+            if(this.pw == "hello"){
+                this.loadDone = true
+            }
+        })
     }
 }
 </script>
