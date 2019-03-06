@@ -24,6 +24,13 @@
             <v-flex xs2>
             </v-flex>
         </v-layout>
+            <v-alert
+            :value="loginFail"
+            type="warning"
+            transition="scale-transition"
+            >
+            잘못된 비밀번호입니다. 비밀번호를 다시 확인해주세요.
+        </v-alert>
     </div>
 </template>
 
@@ -48,7 +55,8 @@ export default {
             ],
             loadDone : false,
             pw : null,
-            login: false
+            login: false,
+            loginFail: false
         }
     },
     methods: {
@@ -59,6 +67,11 @@ export default {
             .then(res => {
                 if(res.data.access == 'success'){
                     this.login = true
+                }else{
+                    this.loginFail = true
+                    setTimeout(()=>{
+                        this.loginFail = false
+                        },4000)
                 }
             })
         }
@@ -72,16 +85,14 @@ export default {
             this.feeds = res.data
         })
         .then(() => {
-            if(this.pw == "hello"){
-                this.loadDone = true
-            }
+            this.loadDone = true
         })
     }
 }
 </script>
 
 <style scoped>
-    #timeline {margin: 0 auto; position: relative;}
+    #timeline {margin: 0 auto; position: relative; width: 100%; max-width: 700px; padding-top: 50px;}
     .title {text-align: center;}
     .layout {max-width: 700px;}
     h1 {text-align: center;}
