@@ -10,6 +10,7 @@
             </v-container>
         </v-layout>
         <v-layout row wrap class="layout login" v-else>
+            <Chat />
             <v-flex xs12>
                 <h1>비밀번호를 입력해주세요</h1>
             </v-flex>
@@ -39,6 +40,7 @@
 import CreateFeed from './CreateFeed'
 import Feeds from './Feeds'
 import CountDown from './CountDown'
+import Chat from './Chat'
 import { eventBus } from '../main'
 import axios from 'axios'
 
@@ -47,7 +49,8 @@ export default {
     components : {
         CreateFeed,
         Feeds,
-        CountDown
+        CountDown,
+        Chat
     },
     data() {
         return {
@@ -56,7 +59,8 @@ export default {
             loadDone : false,
             pw : null,
             login: false,
-            loginFail: false
+            loginFail: false,
+            id : null
         }
     },
     methods: {
@@ -67,6 +71,7 @@ export default {
             .then(res => {
                 if(res.data.access == 'success'){
                     this.login = true
+                    this.id = res.data.id
                 }else{
                     this.loginFail = true
                     setTimeout(()=>{
