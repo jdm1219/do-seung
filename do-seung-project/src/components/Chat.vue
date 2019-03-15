@@ -7,9 +7,9 @@
 </template>
 
 <script>
-const fs = require('fs')
+const fs = require('fs');
 const mysql = require('mysql');
-const data = fs.readFileSync('../../database.json');
+const data = fs.readFileSync('./test.txt')
 const conf = JSON.parse(data);
 
 const connection = mysql.createConnection({
@@ -31,7 +31,7 @@ export default {
     created(){
         connection.query(
             'SELECT * FROM message',
-            (err, rows, fields) => {
+            (err, rows) => {
                 this.chatText = rows
             }
         )
