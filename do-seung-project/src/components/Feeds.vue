@@ -39,7 +39,7 @@ export default {
     methods: {
         test: e =>{
             let img = e.target
-            if(img.width <= img.height){
+            if(img.width < img.height){
                 img.classList.add('horisontal')
             }else{
                 img.classList.add('vertical')
