@@ -1,5 +1,5 @@
 <template>
-    <v-layout row wrap class="layout login">
+    <v-layout row wrap class="login">
         <v-flex xs12>
             <h1>비밀번호를 입력해주세요</h1>
         </v-flex>
@@ -43,8 +43,7 @@ export default {
             })
             .then(res => {
                 if(res.data.access == 'success'){
-                    this.login = true
-                    this.id = res.data.id
+                    eventBus.$emit('loginSuccess',res.data)
                 }else{
                     this.loginFail = true
                     setTimeout(()=>{
@@ -59,7 +58,7 @@ export default {
 
 <style>
 
-    .layout {max-width: 700px;}
+    
     h1 {text-align: center;}
     .login .flex {text-align: center;}
     .login {width: 320px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}

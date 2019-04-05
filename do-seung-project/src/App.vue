@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-layout row wrap>
+    <v-layout row wrap class="app_con">
       <navigation/>
-      <router-view v-if="login"></router-view>
+      <router-view v-if="login" :feeds="feeds"></router-view>
       <Login v-else/>
     </v-layout>
   </v-app>
@@ -11,7 +11,8 @@
 <script>
 import Navigation from './components/Navigation'
 import Login from './components/Login'
-
+import { eventBus } from './main'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -21,14 +22,28 @@ export default {
   },
   data () {
     return {
-      login: false
+      login: false,
+      id: null,
+      feeds : []
     }
+  },
+  created(){
+    eventBus.$on('loginSuccess', res => {
+        axios.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
+        .then(res => {
+            this.feeds = res.data
+        })
+      this.id = res.id
+      this.login = true
+    })
   }
 }
 </script>
 
-<style>
+<style scoped>
+    .app_con {margin-left: 300px; position: relative;}
   @media screen and (max-width: 1200px){
+    .app_con {margin-left: 0;}
     .v-navigation-drawer {display: none;}    
   }
 </style>

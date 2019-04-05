@@ -1,6 +1,6 @@
 <template>
     <v-layout sm12 wrap justify-space-between>
-        <v-flex sm9>
+        <v-flex xs8>
             <v-form
             v-on:submit.prevent="updateFeed"
             >
@@ -10,7 +10,7 @@
                 ></v-text-field>
             </v-form>
         </v-flex>
-        <v-flex sm3>
+        <v-flex xs4>
             <v-btn @click="updateFeed" xs2>제출</v-btn>
         </v-flex>
     </v-layout>
@@ -36,4 +36,5 @@ export default {
 </script>
 
 <style scoped>
+    button {width: 80%;}
 </style>

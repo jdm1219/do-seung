@@ -1,5 +1,7 @@
 <template>
-    <v-navigation-drawer>
+    <v-navigation-drawer
+    fixed
+    >
         <v-toolbar flat>
         <v-list>
             <v-list-tile>
