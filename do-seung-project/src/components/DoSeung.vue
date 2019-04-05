@@ -9,28 +9,7 @@
                 <Feeds v-for="feed in feeds" :key="feed.content" :para="feed" />
             </v-container>
         </v-layout>
-        <v-layout row wrap class="layout login" v-else>
-            <v-flex xs12>
-                <h1>비밀번호를 입력해주세요</h1>
-            </v-flex>
-            <v-flex xs2>
-            </v-flex>
-            <v-flex xs5>
-                <v-text-field v-model="pw"></v-text-field>
-            </v-flex>
-            <v-flex xs3>
-                <v-btn @click="checkLogin">제출</v-btn>
-            </v-flex>
-            <v-flex xs2>
-            </v-flex>
-        </v-layout>
-            <v-alert
-            :value="loginFail"
-            type="warning"
-            transition="scale-transition"
-            >
-            잘못된 비밀번호입니다. 비밀번호를 다시 확인해주세요.
-        </v-alert>
+        
     </div>
 </template>
 
@@ -47,33 +26,13 @@ export default {
     components : {
         CreateFeed,
         Feeds,
-        CountDown
+        CountDown,
     },
     data() {
         return {
             feeds: [
             ],
-            loadDone : false,
-            pw : null,
-            login: false,
-            loginFail: false
-        }
-    },
-    methods: {
-        checkLogin(){
-            axios.post('https://0yunt9oocd.execute-api.ap-northeast-2.amazonaws.com/prod/users',{
-                "pw": this.pw
-            })
-            .then(res => {
-                if(res.data.access == 'success'){
-                    this.login = true
-                }else{
-                    this.loginFail = true
-                    setTimeout(()=>{
-                        this.loginFail = false
-                        },4000)
-                }
-            })
+            loadDone: false
         }
     },
     created() {

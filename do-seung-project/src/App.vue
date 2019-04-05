@@ -2,25 +2,26 @@
   <v-app>
     <v-layout row wrap>
       <navigation/>
-      <DoSeung/>
+      <router-view v-if="login"></router-view>
+      <Login v-else/>
     </v-layout>
   </v-app>
 </template>
 
 <script>
-import DoSeung from './components/DoSeung'
 import Navigation from './components/Navigation'
+import Login from './components/Login'
 
 
 export default {
   name: 'App',
   components: {
-    DoSeung,
-    Navigation
+    Navigation,
+    Login
   },
   data () {
     return {
-      
+      login: false
     }
   }
 }
