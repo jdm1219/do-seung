@@ -1,26 +1,26 @@
 <template>
-    <v-layout row wrap class="login">
-        <v-flex xs12>
-            <h1>비밀번호를 입력해주세요</h1>
-        </v-flex>
-        <v-flex xs2>
-        </v-flex>
-        <v-flex xs5>
-            <v-text-field v-model="pw"></v-text-field>
-        </v-flex>
-        <v-flex xs3>
-            <v-btn @click="checkLogin">제출</v-btn>
-        </v-flex>
-        <v-flex xs2>
-            <v-alert
+    <div class="login_con">
+        <v-layout row wrap class="login">
+            <v-flex xs12>
+                <h1>비밀번호를 입력해주세요</h1>
+            </v-flex>
+            <v-flex xs2>
+            </v-flex>
+            <v-flex xs5>
+                <v-text-field v-model="pw"></v-text-field>
+            </v-flex>
+            <v-flex xs3>
+                <v-btn @click="checkLogin">제출</v-btn>
+            </v-flex>        
+        </v-layout>
+        <v-alert
             :value="loginFail"
             type="warning"
             transition="scale-transition"
             >
             잘못된 비밀번호입니다. 비밀번호를 다시 확인해주세요.
-            </v-alert>
-        </v-flex>
-    </v-layout>
+        </v-alert>
+    </div>
 </template>
 
 <script>
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style>
-
+    .login_con {width: 100%;}
     
     h1 {text-align: center;}
     .login .flex {text-align: center;}

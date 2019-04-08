@@ -31,7 +31,9 @@ export default {
     eventBus.$on('loginSuccess', res => {
         axios.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
         .then(res => {
-            this.feeds = res.data
+          this.feeds = res.data.sort(function(a,b){
+            return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
+          })
         })
       this.id = res.id
       this.login = true
