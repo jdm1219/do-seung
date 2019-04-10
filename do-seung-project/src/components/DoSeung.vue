@@ -1,12 +1,13 @@
 <template>
     <div id="timeline">
+        <v-btn @click="index++">helo</v-btn>
         <v-layout row wrap>
             <v-flex xs12 class="title">
                 <CountDown/>
             </v-flex>
             <v-container grid-list-sm>
                 <CreateFeed/>
-                <Feeds v-for="feed in feeds" :key="feed.content" :para="feed" />
+                <Feeds v-for="feed in loadedImg" :key="feed.content" :para="feed" />
             </v-container>
         </v-layout>
     </div>
@@ -28,7 +29,19 @@ export default {
     },
     data() {
         return {
-            
+            index: 2,
+            ScrollEvent() {
+                let _height = document.body.offsetHeight;
+                let _scroll = window.pageYOffset + window.innerHeight;
+                if(this.index >= this.feeds.length){
+                    window.removeEventListener('scroll',this.ScrollEvent.bind(this))
+                    return
+                }
+                if(_scroll > _height - 150){
+                    this.index += 2
+                }
+                
+            }
         }
     },
     props: {
@@ -38,6 +51,15 @@ export default {
         eventBus.$on('submit', submit => {
             this.feeds.unshift({img:'random', content: submit})
         })
+        window.addEventListener('scroll',this.ScrollEvent.bind(this))
+    },
+    destroyed() {
+        window.removeEventListener('scroll',this.ScrollEvent.bind(this))
+    },
+    computed: {
+        loadedImg: function(){
+            return this.feeds.slice(0,this.index)
+        }
     }
 }
 </script>
