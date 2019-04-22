@@ -38,7 +38,7 @@ export default {
         return {
             items: [
                 {title: 'Dashboard', icon: 'dashboard', link: '/'},
-                { title: 'Map', icon: 'widgets', link: 'map'}
+                { title: 'Chat', icon: 'widgets', link: 'chat'}
             ],
             years: [
 

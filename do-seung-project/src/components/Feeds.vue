@@ -7,7 +7,7 @@
                         <img
                         :src="`https://drive.google.com/uc?export=view&id=${image}`"
                         alt=""
-                        @load="test"
+                        @load="editSize"
                         >
                     </div>
                 </swiper-slide>
@@ -37,7 +37,7 @@ export default {
         para: Object
     },
     methods: {
-        test: e =>{
+        editSize: e =>{
             let img = e.target
             if(img.width < img.height){
                 img.classList.add('horisontal')

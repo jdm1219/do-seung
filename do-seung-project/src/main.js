@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import App from './App.vue'
 import DoSeung from './components/DoSeung'
+import Chat from './components/Chat'
 import '../node_modules/swiper/dist/css/swiper.css'
 
 Vue.config.productionTip = false
@@ -22,7 +23,8 @@ Vue.use(VueAwesomeSwiper,{
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
-    {path: '/', component: DoSeung}
+    {path: '/', component: DoSeung},
+    {path: '/chat', component: Chat}
   ]
 })
 

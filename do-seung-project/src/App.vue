@@ -2,7 +2,7 @@
   <v-app>
     <v-layout row wrap class="app_con">
       <navigation/>
-      <router-view v-if="login" :feeds="feeds"></router-view>
+      <router-view v-if="login" :feeds="feeds" :api="api"></router-view>
       <Login v-else/>
     </v-layout>
   </v-app>
@@ -24,7 +24,9 @@ export default {
     return {
       login: false,
       id: null,
-      feeds : []
+      feeds : [],
+      test : [],
+      api : ''
     }
   },
   created(){
@@ -36,8 +38,11 @@ export default {
           })
         })
       this.id = res.id
+      this.api = res.chatApi
       this.login = true
     })
+
+    
   }
 }
 </script>

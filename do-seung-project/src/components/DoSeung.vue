@@ -1,6 +1,5 @@
 <template>
     <div id="timeline">
-        <v-btn @click="index++">helo</v-btn>
         <v-layout row wrap>
             <v-flex xs12 class="title">
                 <CountDown/>
