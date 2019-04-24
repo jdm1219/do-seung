@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             loginFail: false,
-            id: null,
+            userId: null,
             pw: null
         }
     },

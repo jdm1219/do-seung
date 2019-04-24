@@ -6,31 +6,56 @@
                     {{ items.msg }}
                 </div>
             </v-flex>
+            <v-flex xs8>
+                <v-form>
+                    <v-text-field
+                    v-model="msg"
+                    label="채팅을 써보세요"
+                    @keydown.enter="onChat()"
+                    ></v-text-field>
+                </v-form>
+            </v-flex>
+            <v-flex xs4>
+                <v-btn @click="onChat" xs2>보내기</v-btn>
+            </v-flex>
         </v-layout>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { eventBus } from '../main';
 
 export default {
     name: 'Chat',
     data(){
         return {
-            chat: []
+            msg: ''
         }
     },
     props: {
-        api: String
+        api: String,
+        chat: Array,
+        userId: String
     },
-    created(){
-        if(!this.chat.length){
-            axios.post(this.api)
-            .then(res => {
-                this.chat = res.data.Items.sort(function(a,b){
-                    return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+    methods: {
+        onChat(){
+            let params = {
+                "id" : this.userId,
+                "msg" : this.msg
+            }
+            if(this.msg != ''){
+                axios.post(this.api,JSON.stringify(params))
+                .then(res => {
+                    eventBus.$emit('chatSuccess',res.data.Items.sort(function(a,b){
+                        return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+                    }))
                 })
-            })
+                .catch(err => {
+                    throw err
+                })
+                this.msg = ''
+            }
         }
     }
 }

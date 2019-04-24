@@ -2,7 +2,7 @@
   <v-app>
     <v-layout row wrap class="app_con">
       <navigation/>
-      <router-view v-if="login" :feeds="feeds" :api="api"></router-view>
+      <router-view v-if="login" :feeds="feeds" :api="api" :chat="chat" :userId="id"></router-view>
       <Login v-else/>
     </v-layout>
   </v-app>
@@ -26,23 +26,31 @@ export default {
       id: null,
       feeds : [],
       test : [],
-      api : ''
+      api : '',
+      chat : []
     }
   },
   created(){
     eventBus.$on('loginSuccess', res => {
-        axios.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
-        .then(res => {
-          this.feeds = res.data.sort(function(a,b){
-            return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
-          })
+      axios.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
+      .then(_res => {
+        this.feeds = _res.data.sort(function(a,b){
+          return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
         })
+      })
+      axios.post(res.chatApi)
+      .then(_res => {
+        this.chat = _res.data.Items.sort(function(a,b){
+          return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+        })
+      })
       this.id = res.id
       this.api = res.chatApi
       this.login = true
     })
-
-    
+    eventBus.$on('chatSuccess', res => {
+      this.chat = res
+    })
   }
 }
 </script>
