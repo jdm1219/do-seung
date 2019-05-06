@@ -1,12 +1,14 @@
 import Vue from 'vue'
-import './plugins/vuetify'
-import VueRouter from 'vue-router'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
 import App from './App.vue'
 import DoSeung from './components/DoSeung'
 import Chat from './components/Chat'
+import axios from 'axios'
+import './plugins/vuetify'
+import VueRouter from 'vue-router'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import '../node_modules/swiper/dist/css/swiper.css'
 
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.use(VueAwesomeSwiper,{

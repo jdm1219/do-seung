@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { eventBus } from '../main';
 
 export default {
@@ -45,7 +44,7 @@ export default {
                 "msg" : this.msg
             }
             if(this.msg != ''){
-                axios.post(this.api,JSON.stringify(params))
+                this.$http.post(this.api,JSON.stringify(params))
                 .then(res => {
                     eventBus.$emit('chatSuccess',res.data.Items.sort(function(a,b){
                         return a.no < b.no ? 1 : a.no > b.no ? -1 : 0

@@ -12,7 +12,6 @@
 import Navigation from './components/Navigation'
 import Login from './components/Login'
 import { eventBus } from './main'
-import axios from 'axios'
 
 export default {
   name: 'App',
@@ -32,20 +31,19 @@ export default {
   },
   created(){
     eventBus.$on('loginSuccess', res => {
-      axios.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
+      this.$http.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
       .then(_res => {
         this.feeds = _res.data.sort(function(a,b){
           return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
         })
       })
-      axios.post(res.chatApi)
+      this.$http.get('/chat')
       .then(_res => {
         this.chat = _res.data.Items.sort(function(a,b){
           return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
         })
       })
       this.id = res.id
-      this.api = res.chatApi
       this.login = true
     })
     eventBus.$on('chatSuccess', res => {

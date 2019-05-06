@@ -1,10 +1,11 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-var db = require('../data/database.json');
+var chatdb = require('../data/chat.json');
 
 router.get('/', function (req, res, next) {
-  res.send(db)
+  
+  res.send(chatdb)
 });
 
 module.exports = router;

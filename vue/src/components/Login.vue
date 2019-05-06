@@ -1,9 +1,19 @@
 <template>
-    <div class="login_con">
-        <v-layout row wrap class="login">
+    <div class="login_con login">
+        <v-layout row wrap>
             <v-flex xs12>
-                <h1>비밀번호를 입력해주세요</h1>
+                <h1>로그인해주세요</h1>
             </v-flex>
+        </v-layout>
+        <v-layout justify-center>
+            <v-flex xs6>
+                <v-radio-group v-model="userId" row>
+                    <v-radio key="seung" value="seung" label= "승"></v-radio>
+                    <v-radio key="do" value="do" label="도"></v-radio>
+                </v-radio-group>
+            </v-flex>
+        </v-layout>
+        <v-layout>
             <v-flex xs2>
             </v-flex>
             <v-flex xs5>
@@ -24,7 +34,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { eventBus } from '../main'
 
 export default {
@@ -32,13 +41,14 @@ export default {
     data() {
         return {
             loginFail: false,
-            userId: null,
+            userId: "seung",
             pw: null
         }
     },
     methods: {
         checkLogin(){
-            axios.post('https://0yunt9oocd.execute-api.ap-northeast-2.amazonaws.com/prod/users',{
+            this.$http.post('/login',{
+                "id": this.userId,
                 "pw": this.pw
             })
             .then(res => {
@@ -58,7 +68,7 @@ export default {
 
 <style>
     .login_con {width: 100%;}
-    
+    .v-input__control {margin: 0 auto;}
     h1 {text-align: center;}
     .login .flex {text-align: center;}
     .login {width: 320px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}
