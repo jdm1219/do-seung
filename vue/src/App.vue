@@ -24,8 +24,6 @@ export default {
       login: false,
       id: null,
       feeds : [],
-      test : [],
-      api : '',
       chat : []
     }
   },

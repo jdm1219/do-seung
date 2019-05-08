@@ -17,7 +17,7 @@
             <v-flex xs2>
             </v-flex>
             <v-flex xs5>
-                <v-text-field v-model="pw"></v-text-field>
+                <v-text-field v-model="pw" @keyup.13="checkLogin"></v-text-field>
             </v-flex>
             <v-flex xs3>
                 <v-btn @click="checkLogin">제출</v-btn>

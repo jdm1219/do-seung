@@ -5,15 +5,14 @@
                 <div v-for="items in chat" :key="items.no">
                     {{ items.msg }}
                 </div>
+                <div>{{ chat }}</div>
             </v-flex>
             <v-flex xs8>
-                <v-form>
-                    <v-text-field
-                    v-model="msg"
-                    label="채팅을 써보세요"
-                    @keydown.enter="onChat()"
-                    ></v-text-field>
-                </v-form>
+                <v-text-field
+                v-model="msg"
+                label="채팅을 써보세요"
+                @keyup.13="onChat"
+                ></v-text-field>
             </v-flex>
             <v-flex xs4>
                 <v-btn @click="onChat" xs2>보내기</v-btn>
@@ -33,7 +32,6 @@ export default {
         }
     },
     props: {
-        api: String,
         chat: Array,
         userId: String
     },
@@ -44,7 +42,7 @@ export default {
                 "msg" : this.msg
             }
             if(this.msg != ''){
-                this.$http.post(this.api,JSON.stringify(params))
+                this.$http.post('/chat',params)
                 .then(res => {
                     eventBus.$emit('chatSuccess',res.data.Items.sort(function(a,b){
                         return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
