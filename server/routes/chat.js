@@ -11,12 +11,11 @@ router.post('/', function(req,res,next){
   let param = {
     no: chatdb.Items.length+1,
     id: req.body.id,
-    chat: req.body.msg
+    msg: req.body.msg
   }
   chatdb.Items.push(param)
-  fs.writeFileSync(__dirname + '/../data/chat.json',JSON.stringify(chatdb),'utf-8',function(err){
+  fs.writeFileSync(__dirname + '/../data/chat.json',JSON.stringify(chatdb),'utf-8',function(data,err){
     chatdb = require('../data/chat.json')
-    console.log(chatdb)
     res.send(chatdb)
   })
 })

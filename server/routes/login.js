@@ -2,16 +2,14 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var logindb = require('../data/login.json');
-const NodeRSA = require('node-rsa');
-const key = new NodeRSA({b:512});
-
-
+const crypto = require('crypto')
 
 router.post('/', function (req, res, next) {
-    let id = req.body.id;
-    let pw = req.body.pw;
+    const id = req.body.id;
+    const pw = req.body.pw;
+    const key = crypto.createHash('sha512').update(pw).digest('base64');
     console.log(id)
-    if(pw === logindb[id]){
+    if(key === logindb[id]){
         res.send({
             access : 'success',
             id : id

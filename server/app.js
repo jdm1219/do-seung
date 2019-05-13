@@ -4,9 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var chatRouter = require('./routes/chat');
-var loginRouter = require('./routes/login');;
+var loginRouter = require('./routes/login');
+var socket_id = require('socket.io');
 
 var app = express();
+
+var io = socket_id();
+app.io = io;
 
 app.use(require('connect-history-api-fallback')());
 
@@ -38,5 +42,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.io.on('connection',function(socket){
+  console.log('connected')
+})
+
 
 module.exports = app;

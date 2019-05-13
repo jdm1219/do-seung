@@ -1,11 +1,12 @@
 <template>
     <div id="chat">
         <v-layout row wrap>
-            <v-flex xs12>
-                <div v-for="items in chat" :key="items.no">
-                    {{ items.msg }}
+            <v-flex xs12 class="chat_container">
+                <div v-for="items in chat" :key="items.no" class="chatings">
+                    <div :class="{me: (userId == items.id),you:(userId != items.id)}" class="chating">
+                        {{ items.msg }}
+                    </div>
                 </div>
-                <div>{{ chat }}</div>
             </v-flex>
             <v-flex xs8>
                 <v-text-field
@@ -60,4 +61,11 @@ export default {
 
 <style scoped>
     #chat {margin: 0 auto; position: relative; width: 100%; max-width: 700px; padding-top: 50px;}
+    .chat_container {height: 800px;}
+    .chatings {overflow: hidden;}
+    .chating {border-radius: 10px; max-width: 400px; padding: 5px 7px; position: relative;}
+    .me {background: yellow; float: right;}
+    .me::after {content: ""; display: block; position: absolute; border: 10px solid #ff0; border-left-color: transparent; border-bottom-color: transparent; right: 0; top: calc(100% - 7px)}
+    .you {background: #aaa; float: left;}
+    .you::after {content: ""; display: block; position: absolute; border: 10px solid #ff0; border-right-color: transparent; border-bottom-color: transparent; left: 0; top: calc(100% - 7px)}
 </style>
