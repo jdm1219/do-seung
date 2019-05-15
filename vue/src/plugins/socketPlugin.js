@@ -10,10 +10,7 @@ const SocketPlugin = {
     });
 
     vue.prototype.$sendMessage = ($payload) => {
-      socket.emit('chat', {
-        msg: $payload.msg,
-        name: $payload.name,
-      });
+      socket.emit('chat', $payload);
     };
 
     // 인스턴스 메소드 추가

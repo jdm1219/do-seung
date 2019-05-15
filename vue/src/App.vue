@@ -28,6 +28,7 @@ export default {
     }
   },
   created(){
+    // 로그인성공 후 api가져오기
     eventBus.$on('loginSuccess', res => {
       this.$http.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
       .then(_res => {
@@ -44,8 +45,13 @@ export default {
       this.id = res.id
       this.login = true
     })
+
+    // 
     eventBus.$on('chatSuccess', res => {
       this.chat = res
+    })
+    this.$socket.on('chat', res => {
+
     })
   }
 }

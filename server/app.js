@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var chatRouter = require('./routes/chat');
 var loginRouter = require('./routes/login');
+var fs = require('fs');
+var chatdb = require('./data/chat.json');
 var socket_id = require('socket.io');
 
 var app = express();
@@ -25,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/chat',chatRouter)
-app.use('/login', loginRouter);
+app.use('/login', loginRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,6 +47,19 @@ app.use(function(err, req, res, next) {
 
 app.io.on('connection',function(socket){
   console.log('connected')
+  socket.on('chat',function(data){
+    let param = {
+      no: chatdb.Items.length+1,
+      id: data.id,
+      msg: data.msg
+    }
+    chatdb.Items.push(param)
+    fs.writeFile(__dirname + '/../da  ta/chat.json',JSON.stringify(chatdb),'utf-8',function(data){
+      chatdb = require('../data/chat.json')
+    })
+    console.log(param,'submited')
+    socket.broadcast.emit('chat',param)
+  })
 })
 
 

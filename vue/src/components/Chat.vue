@@ -24,12 +24,14 @@
 
 <script>
 import { eventBus } from '../main';
+import io from 'socket.io-client'
 
 export default {
     name: 'Chat',
     data(){
         return {
-            msg: ''
+            msg: '',
+            socket: io('localhost:3000')
         }
     },
     props: {
@@ -42,6 +44,7 @@ export default {
                 "id" : this.userId,
                 "msg" : this.msg
             }
+            this.$sendMessage(params)
             if(this.msg != ''){
                 this.$http.post('/chat',params)
                 .then(res => {

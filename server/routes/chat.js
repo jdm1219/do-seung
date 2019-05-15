@@ -13,11 +13,11 @@ router.post('/', function(req,res,next){
     id: req.body.id,
     msg: req.body.msg
   }
-  chatdb.Items.push(param)
-  fs.writeFileSync(__dirname + '/../data/chat.json',JSON.stringify(chatdb),'utf-8',function(data,err){
-    chatdb = require('../data/chat.json')
-    res.send(chatdb)
-  })
+  // chatdb.Items.push(param)
+  // fs.writeFile(__dirname + '/../data/chat.json',JSON.stringify(chatdb),'utf-8',function(data){
+  //   chatdb = require('../data/chat.json')
+  //   console.log(chatdb,'done!')
+  // })
 })
 
 module.exports = router;
