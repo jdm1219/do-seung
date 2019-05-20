@@ -5,6 +5,7 @@
                 <div v-for="items in chat" :key="items.no" class="chatings">
                     <div :class="{me: (userId == items.id),you:(userId != items.id)}" class="chating">
                         {{ items.msg }}
+                        {{items}}
                     </div>
                 </div>
             </v-flex>
@@ -23,7 +24,6 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
 import io from 'socket.io-client'
 
 export default {
@@ -44,17 +44,9 @@ export default {
                 "id" : this.userId,
                 "msg" : this.msg
             }
-            this.$sendMessage(params)
             if(this.msg != ''){
+                this.$sendMessage(params)
                 this.$http.post('/chat',params)
-                .then(res => {
-                    eventBus.$emit('chatSuccess',res.data.Items.sort(function(a,b){
-                        return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
-                    }))
-                })
-                .catch(err => {
-                    throw err
-                })
                 this.msg = ''
             }
         }

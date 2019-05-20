@@ -38,20 +38,17 @@ export default {
       })
       this.$http.get('/chat')
       .then(_res => {
-        this.chat = _res.data.Items.sort(function(a,b){
-          return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
-        })
+        console.log(_res)
+        // this.chat = _res.data.Items.sort(function(a,b){
+        //   return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+        // })
       })
       this.id = res.id
       this.login = true
     })
 
-    // 
-    eventBus.$on('chatSuccess', res => {
-      this.chat = res
-    })
     this.$socket.on('chat', res => {
-
+      this.chat.push(res)
     })
   }
 }
