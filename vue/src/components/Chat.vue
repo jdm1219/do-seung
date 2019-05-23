@@ -45,8 +45,8 @@ export default {
                 "msg" : this.msg
             }
             if(this.msg != ''){
-                this.$sendMessage(params)
                 this.$http.post('/chat',params)
+                this.$sendMessage(params)
                 this.msg = ''
             }
         }

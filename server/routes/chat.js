@@ -1,24 +1,27 @@
 var express = require('express');
-var fs = require('fs')
-var path = require('path');
+var fs = require('fs');
 var router = express.Router();
-var chatdb = require('../data/chat.json');
+var mysql = require('mysql')
+var db = require('../data/database.json');
+let chatdb
+var connection = mysql.createConnection(db);
+connection.connect();
+
 
 router.get('/', function (req, res, next) {
-  res.send(chatdb)
+  connection.query("SELECT * FROM chat",function(err,rows){
+    if(err) throw err
+    chatdb = rows
+    res.send(chatdb)
+  })
 });
 router.post('/', function(req,res,next){
-  let param = {
-    no: chatdb.Items.length+1,
-    id: req.body.id,
-    msg: req.body.msg
-  }
-  chatdb.Items.push(param)
-  fs.writeFile(__dirname + '/../data/chat.json',JSON.stringify(chatdb),'utf-8',function(data){
-    chatdb = require('../data/chat.json')
-    console.log(chatdb,'done!')
+  let id = req.body.id
+  let msg = req.body.msg
+  connection.query("INSERT INTO chat (msg, id) values ('" + id +"', '" + msg + "')",function(err,rows){
+    if(err) throw err
+    console.log('data inserted',rows)
   })
-  res.send(param)
 })
 
 module.exports = router;
