@@ -72,7 +72,7 @@ app.io.on('connection',function(socket){
       id: data.id,
       msg: data.msg
     }
-    console.log(testdb)
+   // console.log(testdb)
     socket.emit('chat',param)
   })
 })
