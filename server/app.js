@@ -4,20 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var loginRouter = require('./routes/login');
+var chatRouter = require('./routes/chat')
 var fs = require('fs');
 var chatdb = require('./data/chat.json');
 var socket_id = require('socket.io');
 var mysql = require('mysql')
-var db = require('./data/database.json')
-var connection = mysql.createConnection({
-  host : db.host,
-  user : db.user,
-  password : db.password,
-  port : db.port,
-  database : db.database
-});
+// var db = require('./data/database.json')
+// var connection = mysql.createConnection({
+//   host : db.host,
+//   user : db.user,
+//   password : db.password,
+//   port : db.port,
+//   database : db.database
+// });
 var app = express();
-connection.connect();
+// connection.connect();
 
 var io = socket_id();
 app.io = io;
@@ -34,17 +35,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var testdb
-connection.query(
-  "SELECT * FROM CHAT",
-  (err, rows, fields) => {
-    testdb = rows
-  }
-)
-console.log(testdb)
-app.get('/chat',(req,res) => {
-  res.send(testdb)
-})
+// var testdb
+// connection.query(
+//   "SELECT * FROM CHAT",
+//   (err, rows, fields) => {
+//     testdb = rows
+//   }
+// )
+// console.log(testdb)
+// app.get('/chat',(req,res) => {
+//   res.send(testdb)
+// })
+app.use('/chat', chatRouter)
 app.use('/login', loginRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

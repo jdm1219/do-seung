@@ -18,6 +18,7 @@ router.post('/', function(req,res,next){
     chatdb = require('../data/chat.json')
     console.log(chatdb,'done!')
   })
+  res.send(param)
 })
 
 module.exports = router;

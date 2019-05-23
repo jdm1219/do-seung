@@ -39,9 +39,9 @@ export default {
       this.$http.get('/chat')
       .then(_res => {
         console.log(_res)
-        // this.chat = _res.data.Items.sort(function(a,b){
-        //   return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
-        // })
+        this.chat = _res.data.Items.sort(function(a,b){
+          return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+        })
       })
       this.id = res.id
       this.login = true
