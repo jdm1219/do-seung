@@ -45,8 +45,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-
-
 app.io.on('connection',function(socket){
   console.log('connected')
   socket.on('chat',function(data){
