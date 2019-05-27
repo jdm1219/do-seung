@@ -2,10 +2,11 @@
     <div id="chat">
         <v-layout row wrap>
             <v-flex xs12 class="chat_container">
-                <div v-for="items in chat" :key="items.no" class="chatings">
-                    <div :class="{me: (userId == items.id),you:(userId != items.id)}" class="chating">
+                <div v-for="items in chat" :key="items.no" class="chatings" :class="{me: (userId == items.id),you:(userId != items.id)}">
+                    <div class="chating">
+                    <small class="user_id">{{ items.id }}</small>
+                    <small class="time">{{ items.datetime }}</small>
                         {{ items.msg }}
-                        {{items}}
                     </div>
                 </div>
             </v-flex>
@@ -46,7 +47,11 @@ export default {
             }
             if(this.msg != ''){
                 this.$http.post('/chat',params)
-                this.$sendMessage(params)
+                .then(res => {
+                    params.no = res.data.no
+                    params.datetime = res.data.time
+                    this.$sendMessage(params)
+                })
                 this.msg = ''
             }
         }
@@ -56,11 +61,16 @@ export default {
 
 <style scoped>
     #chat {margin: 0 auto; position: relative; width: 100%; max-width: 700px; padding-top: 50px;}
-    .chat_container {height: 800px;}
+    .chat_container {height: 75vh; overflow: scroll;}
     .chatings {overflow: hidden;}
-    .chating {border-radius: 10px; max-width: 400px; padding: 5px 7px; position: relative;}
-    .me {background: yellow; float: right;}
-    .me::after {content: ""; display: block; position: absolute; border: 10px solid #ff0; border-left-color: transparent; border-bottom-color: transparent; right: 0; top: calc(100% - 7px)}
-    .you {background: #aaa; float: left;}
-    .you::after {content: ""; display: block; position: absolute; border: 10px solid #ff0; border-right-color: transparent; border-bottom-color: transparent; left: 0; top: calc(100% - 7px)}
+    .chating {border-radius: 10px; max-width: 400px; margin-top: 15px; padding: 5px 7px; position: relative; display: inline-block;}
+    .chating .user_id {position: absolute; top: -15px;}
+    .me {text-align: right;}
+    .you {text-align: left;}
+    .me .chating {background: yellow; margin-right: 20px;}
+    .me .chating::after {content: ""; display: block; position: absolute; border: 5px solid #ff0; border-right-color: transparent; border-bottom-color: transparent; right: -7px; top: calc(50% - 7px)}
+    .you .chating {background: #aaa; margin-left: 20px;}
+    .you .chating::after {content: ""; display: block; position: absolute; border: 5px solid #aaa; border-left-color: transparent; border-bottom-color: transparent; left: -7px; top: calc(50% - 7px)}
+    .me .chating .time {position: absolute; right: 100%;}
+    .you .chating .time {position: absolute; left: 100%;}
 </style>

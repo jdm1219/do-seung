@@ -36,12 +36,11 @@ export default {
           return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
         })
       })
-      //  얘는 왜 안바뀌니
       this.$http.get('/chat')
       .then(_res => {
         console.log(_res)
         this.chat = _res.data.sort(function(a,b){
-          return a.no < b.no ? 1 : a.no > b.no ? -1 : 0
+          return a.no > b.no ? 1 : a.no < b.no ? -1 : 0
         })
       })
       this.id = res.id
