@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import moment from 'moment'
 import DoSeung from './components/DoSeung'
 import Chat from './components/Chat'
 import axios from 'axios'
@@ -10,6 +11,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import '../node_modules/swiper/dist/css/swiper.css'
 
 Vue.prototype.$http = axios
+Vue.prototype.moment = moment
 Vue.config.productionTip = false
 
 Vue.use(VueAwesomeSwiper,{

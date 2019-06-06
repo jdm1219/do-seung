@@ -4,13 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var loginRouter = require('./routes/login');
-var chatRouter = require('./routes/chat');
+// var chatRouter = require('./routes/chat');
 var fs = require('fs');
-var chatdb = require('./data/chat.json');
-var socket_id = require('socket.io');
+var socket_io = require('socket.io');
 var app = express();
+var mysql = require('mysql')
+var db = require('./data/database.json');
+let chatdb
+var connection = mysql.createConnection(db);
+var moment = require('moment')
+connection.connect();
 
-var io = socket_id();
+var io = socket_io();
 app.io = io;
 
 app.use(require('connect-history-api-fallback')());
@@ -25,8 +30,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use('/chat', chatRouter)
+app.get('/chat',function(req,res,next){
+  connection.query("SELECT * FROM chat",function(err,rows){
+    if(err) throw err
+    chatdb = rows
+    console.log(chatdb)
+    res.send(chatdb)
+  })
+})
+// app.use('/chat', chatRouter)
 app.use('/login', loginRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,8 +60,19 @@ app.use(function(err, req, res, next) {
 app.io.on('connection',function(socket){
   console.log('connected')
   socket.on('chat',function(data){
-    console.log(data,'emit!!')
-    socket.emit('chat',data)
+    let id = data.id
+    let msg = data.msg
+    let time = moment().format("YYYY-MM-DD HH:mm:ss")
+    connection.query("INSERT INTO chat (id, msg, datetime) values ('" + id +"', '" + msg + "', '" + time + "')",function(err,rows){
+      if(err) throw err
+      let param = {
+        id : id,
+        msg : msg,
+        datetime : time,
+        no : rows.insertId
+      }
+      io.emit('chat',param)
+    })
   })
 })
 

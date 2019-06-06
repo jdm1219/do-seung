@@ -5,7 +5,7 @@
                 <div v-for="items in chat" :key="items.no" class="chatings" :class="{me: (userId == items.id),you:(userId != items.id)}">
                     <div class="chating">
                     <small class="user_id">{{ items.id }}</small>
-                    <small class="time">{{ items.datetime }}</small>
+                    <small class="time">{{ moment(items.datetime).format('YY-MM-DD, h:mm a') }}</small>
                         {{ items.msg }}
                     </div>
                 </div>
@@ -25,14 +25,11 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
-
 export default {
     name: 'Chat',
     data(){
         return {
-            msg: '',
-            socket: io('localhost:3000')
+            msg: ''
         }
     },
     props: {
@@ -46,12 +43,7 @@ export default {
                 "msg" : this.msg
             }
             if(this.msg != ''){
-                this.$http.post('/chat',params)
-                .then(res => {
-                    params.no = res.data.no
-                    params.datetime = res.data.time
-                    this.$sendMessage(params)
-                })
+                this.$sendMessage(params)
                 this.msg = ''
             }
         }
@@ -69,8 +61,10 @@ export default {
     .you {text-align: left;}
     .me .chating {background: yellow; margin-right: 20px;}
     .me .chating::after {content: ""; display: block; position: absolute; border: 5px solid #ff0; border-right-color: transparent; border-bottom-color: transparent; right: -7px; top: calc(50% - 7px)}
+    .me .chating .time {position: absolute; right: 100%; width: 100px;}
+    .me .user_id {right: 0;}
     .you .chating {background: #aaa; margin-left: 20px;}
     .you .chating::after {content: ""; display: block; position: absolute; border: 5px solid #aaa; border-left-color: transparent; border-bottom-color: transparent; left: -7px; top: calc(50% - 7px)}
-    .me .chating .time {position: absolute; right: 100%;}
-    .you .chating .time {position: absolute; left: 100%;}
+    .you .chating .time {position: absolute; left: 100%; width: 100px;}
+    .you .user_id {left: 0;}
 </style>

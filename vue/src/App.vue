@@ -38,7 +38,6 @@ export default {
       })
       this.$http.get('/chat')
       .then(_res => {
-        console.log(_res)
         this.chat = _res.data.sort(function(a,b){
           return a.no > b.no ? 1 : a.no < b.no ? -1 : 0
         })
