@@ -30,14 +30,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.get('/', function (req, res, next) {
-//   res.sendFile(path.join(__dirname, '../public', 'index.html'))
-// });
 app.get('/chat',function(req,res,next){
   connection.query("SELECT * FROM chat",function(err,rows){
     if(err) throw err
     chatdb = rows
-    console.log(chatdb)
+    // console.log(chatdb)
     res.send(chatdb)
   })
 })
@@ -73,6 +70,7 @@ app.io.on('connection',function(socket){
         datetime : time,
         no : rows.insertId
       }
+      console.log(param)
       io.emit('chat',param)
     })
   })
