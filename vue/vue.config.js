@@ -1,6 +1,4 @@
 module.exports = {
-    publicPath: "./",
-    outputDir: "../server/public",
     devServer: {
         proxy:{
             '/': {
@@ -12,5 +10,7 @@ module.exports = {
                 changeOrigin: true
             }
         }
-    }
+    },
+    publicPath: "./",
+    outputDir: "../server/public"
 }
