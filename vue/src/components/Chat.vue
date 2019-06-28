@@ -67,7 +67,7 @@ export default {
 
 <style scoped>
     #chat {margin: 0 auto; position: relative; width: 100%; max-width: 700px; padding-top: 50px;}
-    .chat_container {height: 75vh; overflow: scroll;}
+    .chat_container {height: 70vh; overflow: scroll;}
     .chatings {overflow: hidden;}
     .chating {border-radius: 10px; max-width: 400px; margin-top: 15px; padding: 5px 7px; position: relative; display: inline-block;}
     .chating .user_id {position: absolute; top: -15px;}

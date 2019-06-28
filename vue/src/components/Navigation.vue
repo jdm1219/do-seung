@@ -8,19 +8,12 @@
         app
         fixed
         >
-            <v-toolbar flat>
-            <v-list>
-                <v-list-tile>
-                <v-list-tile-title class="title">
-                    Navigation
-                </v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-            </v-toolbar>
 
-            <v-divider></v-divider>
 
             <v-list dense class="pt-0">
+            <v-list-tile v-if="userId">안녕하세요 {{ userId }}님</v-list-tile>
+            <v-list-tile v-else>로그인 해주세요</v-list-tile>
+
             <v-list-tile
                 v-for="item in items"
                 :key="item.title"
@@ -33,7 +26,6 @@
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            
             </v-list>
         </v-navigation-drawer>
     </nav>
@@ -49,12 +41,21 @@ export default {
             ],
             drawer: true
         }
-    } 
+    },
+    props: {
+        userId: String
+    }
 }
 </script>
 
 <style>
     .v-toolbar {
         padding-left: 0 !important;
+        display: none;
+    }
+    @media screen and (max-width: 1200px){
+        .v-toolbar {
+            display: block;
+        }
     }
 </style>

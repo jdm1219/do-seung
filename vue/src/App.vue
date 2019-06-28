@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-layout row wrap class="app_con">
-      <navigation/>
+      <navigation :userId="id"/>
       <router-view v-if="login" :feeds="feeds" :chat="chat" :userId="id"></router-view>
       <Login v-else/>
     </v-layout>
@@ -56,7 +56,6 @@ export default {
 <style scoped>
     .app_con {margin-left: 300px; position: relative;}
   @media screen and (max-width: 1200px){
-    .app_con {margin-left: 0;}
-    .v-navigation-drawer {display: none;}    
+    .app_con {margin-left: 0; margin-top: 56px;}
   }
 </style>
