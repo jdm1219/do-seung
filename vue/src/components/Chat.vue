@@ -46,6 +46,20 @@ export default {
                 this.$sendMessage(params)
                 this.msg = ''
             }
+        },
+        toEnd(){
+            let target = document.getElementsByClassName('chat_container')[0]
+            target.scrollTop = target.scrollHeight
+        }
+    },
+    mounted(){
+        this.toEnd()
+    },
+    watch: {
+        chat(){
+            this.$nextTick(() => {
+                this.toEnd()
+            })
         }
     }
 }

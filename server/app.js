@@ -13,6 +13,8 @@ var db = require('./data/database.json');
 let chatdb
 var connection = mysql.createConnection(db);
 var moment = require('moment')
+require('moment-timezone')
+moment.tz.setDefault("Asia/Seoul");
 connection.connect();
 
 var io = socket_io();
@@ -70,7 +72,6 @@ app.io.on('connection',function(socket){
         datetime : time,
         no : rows.insertId
       }
-      console.log(param)
       io.emit('chat',param)
     })
   })

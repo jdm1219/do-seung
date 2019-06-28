@@ -2,7 +2,7 @@
   <v-app>
     <v-layout row wrap class="app_con">
       <navigation/>
-      <router-view v-if="login" :feeds="feeds" :api="api" :chat="chat" :userId="id"></router-view>
+      <router-view v-if="login" :feeds="feeds" :chat="chat" :userId="id"></router-view>
       <Login v-else/>
     </v-layout>
   </v-app>
