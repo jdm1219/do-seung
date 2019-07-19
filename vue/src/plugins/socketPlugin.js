@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import io from 'socket.io-client';
 
-const socket = io('http://ec2-54-180-92-105.ap-northeast-2.compute.amazonaws.com:3000');
+const socket = io('http://ec2-52-79-45-185.ap-northeast-2.compute.amazonaws.com');
 // const socket = io('http://localhost:3000');
 
 
