@@ -30,12 +30,20 @@ export default {
   created(){
     // 로그인성공 후 api가져오기
     eventBus.$on('loginSuccess', res => {
-      this.$http.get('https://script.google.com/macros/s/AKfycbyJp4bpa7PozGNnBqhVRv17oaupXPpSuNhMGimLytm6/dev')
+      this.$http.get('/feed')
       .then(_res => {
         this.feeds = _res.data.sort(function(a,b){
-          return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
+          return a.no > b.no ? 1 : a.no < b.no ? -1 : 0
         })
       })
+      // this.$http.get('https://script.googleusercontent.com/macros/echo?user_content_key=l52LBNWZhlCa4P9yBtPFjh_jUZfxgiVnuo34llptTJ6bpbGjTZvKMIAnu0AK2YG2Q79ZLtB2_xU8_0Me4pjIENYsJLjNRDe4m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnO-CikAhlmO6sxo6EyF3xWN3FgICoKoHfkHVgKp5rd3k_iAtV-vM3JIrWLVNrTiWCw&lib=MWBl27hf3sQu2TtzIAyBGsTSN4hXl_mY8')
+      // .then(_res => {
+      //   this.feeds = _res.data.sort(function(a,b){
+      //     return a.content < b.content ? 1 : a.content > b.content ? -1 : 0
+      //   })
+      // }).catch(_err => {
+      //   console.log(_err)
+      // })
       this.$http.get('/chat')
       .then(_res => {
         this.chat = _res.data.sort(function(a,b){
